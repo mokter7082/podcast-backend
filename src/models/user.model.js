@@ -33,14 +33,17 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.pre('save', function(next) {
-
-  const password = this.password
-  const hashPassword = bcrypt.hashSync(password)
-  this.password = hashPassword
-  
-  next()
+userSchema.pre("save", function (next) {
+  const password = this.password;
+  const hashPassword = bcrypt.hashSync(password);
+  this.password = hashPassword;
+  next();
 });
+
+userSchema.methods.compairePasswrod = function (password, hash) {
+  const isPasswordValid = bcrypt.compareSync(password, hash);
+  return isPasswordValid;
+};
 
 const User = mongoose.model("User", userSchema);
 

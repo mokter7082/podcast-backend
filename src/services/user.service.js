@@ -8,3 +8,7 @@ module.exports.saveUserService = async (userInfo) => {
   const result = await User.create(userInfo);
   return result;
 };
+module.exports.loginUserService = async (userInfo) => {
+  const result = await User.create(userInfo);
+  return result;
+};
