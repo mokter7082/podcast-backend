@@ -1,20 +1,20 @@
-const { tokenSecret } = require("../secret");
+const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
+const { tokenSecret } = require("../secret");
 
-module.exports.verifyJwt = (req, res, next) => {
-  const token = req.headers.authorization; // Assuming JWT is sent in the Authorization header
-
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
-
-  jwt.verify(token, tokenSecret, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Invalid token" });
+module.exports.tokenVerify = async (req, res, next) => {
+  try {
+    const token = req.headers?.authorization?.split(" ")?.[0];
+    if (!token) {
+      return res.status(401); // Unauthorized
     }
-
-    // If the token is valid, you can attach the decoded payload to the request for use in subsequent middleware/route handlers
+    const decoded = promisify(jwt.verify)(token, tokenSecret);
     req.user = decoded;
-    next();
-  });
+  } catch (error) {
+    return res.status(403).json({
+      isSuccess: false,
+      message: "Invalid token",
+      error,
+    });
+  }
 };
