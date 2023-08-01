@@ -82,6 +82,7 @@ module.exports.userLogin = async (req, res) => {
 
 module.exports.getMe = async (req, res) => {
   try {
+    console.log(req);
     return res.send("Get me");
   } catch (error) {
     return res.status(500).json({
