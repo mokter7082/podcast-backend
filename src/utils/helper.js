@@ -10,5 +10,5 @@
 const User = require("../models/user.model");
 
 exports.getUserByEmail = async (email) => {
-  return await User.findOne({ email }).select("-password");
+  return await User.findOne({ email });
 };

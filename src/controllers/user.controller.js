@@ -5,6 +5,7 @@ const { getUserByEmail } = require("../utils/helper");
 module.exports.saveUser = async (req, res) => {
   try {
     const result = await userService.saveUserService(req.body);
+
     return res.status(200).json({
       isSuccess: true,
       message: "Susscessfully signed up",
