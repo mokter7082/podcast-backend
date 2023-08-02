@@ -82,8 +82,7 @@ module.exports.userLogin = async (req, res) => {
 
 module.exports.getMe = async (req, res) => {
   try {
-    console.log(req);
-    return res.send("Get me");
+    return res.send(req.user);
   } catch (error) {
     return res.status(500).json({
       isSuccess: false,

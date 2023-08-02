@@ -23,13 +23,15 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
+  role: {
+    type: String,
+    enum: ["user", "admin", "moderator"],
+    default: "user",
   },
-  isBand: {
-    type: Boolean,
-    default: false,
+  status: {
+    type: String,
+    enum: ["active", "inactive", "band"],
+    default: "active",
   },
 });
 
