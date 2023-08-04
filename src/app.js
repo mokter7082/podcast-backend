@@ -14,7 +14,7 @@ app.use(cors());
 
 
 app.get("/", (req, res) => {
-  res.send("API server working !");
+  res.send("API server working 1 !");
 });
 
 app.use("/api/v1", userRouter);
