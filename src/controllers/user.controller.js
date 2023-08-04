@@ -5,10 +5,17 @@ const { getUserByEmail } = require("../utils/helper");
 module.exports.saveUser = async (req, res) => {
   try {
     const result = await userService.saveUserService(req.body);
-
+    if(!result){
+      return res.status(200).json({
+        isSuccess: true,
+        message: "Signed up field",
+      });
+    }
+    const token = generateJSONWebToken(result);
     return res.status(200).json({
       isSuccess: true,
       message: "Susscessfully signed up",
+token:token,
       data: result,
     });
   } catch (error) {
@@ -23,7 +30,7 @@ module.exports.getUsers = async (req, res) => {
     const result = await userService.getUserService();
     res.status(200).json({
       isSuccess: true,
-      message: "All users returned",
+ 
       data: result,
     });
   } catch (error) {
